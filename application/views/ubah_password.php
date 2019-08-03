@@ -23,11 +23,11 @@
 
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('products/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
+						<a href="<?php echo site_url('user') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
 					<div class="card-body">
 
-						<form action="<?php echo site_url('user/simpan_password') ?>" method="post" enctype="multipart/form-data" >
+						<form action="<?php echo site_url('admin/simpan_password') ?>" method="post" enctype="multipart/form-data" >
 							<div class="form-group">
 								<label for="email">Email</label>
 								<input class="form-control <?php echo form_error('name') ? 'is-invalid':'' ?>"

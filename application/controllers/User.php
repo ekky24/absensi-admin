@@ -10,72 +10,51 @@ class User extends CI_Controller {
         $this->load->helper('url');
     }
 
-	public function login()
-	{
-		$this->load->view('login');
-	}
+	public function index()
+    {
+        $data["users"] = $this->user_model->getAll();
+        $this->load->view('index', $data);
+    }
 
-	public function attempt()
-	{
-		$email = $this->input->post('email');
-		$password = md5($this->input->post('password'));
+    public function laporan() 
+    {
+    	$tgl_awal = $this->input->post('tgl_awal');
+    	$tgl_akhir = $this->input->post('tgl_akhir');
 
-		$validation = $this->form_validation;
-        $validation->set_rules($this->user_model->rules());
+    	$data['users'] = $this->user_model->getByFilter($tgl_awal, $tgl_akhir);
+    	$data['tgl_awal'] = $tgl_awal;
+    	$data['tgl_akhir'] = $tgl_akhir;
 
-		$cek = $this->user_model->login_attempt($email, $password)->num_rows();
-		
-		if($cek > 0){
-	 
-			$data_session = array(
-				'email' => $email,
-			);
-	 
-			$this->session->set_userdata($data_session);
-			redirect("overview");
-		} else {
-			$this->session->set_flashdata('message', 'Email atau Password Salah');
-			redirect("user/login");
-		}
-	}
+    	$this->load->view('laporan', $data);	
+    }
 
-	public function logout()
-	{
-		$this->session->sess_destroy();
-		redirect("user/login");
-	}
+    public function form_json()
+    {
+    	$this->load->view('form_json');
+    }
 
-	public function ubah_password() 
-	{
-		$this->load->view('ubah_password');
-	}
+    public function upload_json()
+    {
+    	$config['upload_path']          = './upload/json/';
+        $config['allowed_types']        = '*';
+        $config['file_name']            = 'backup';
+        $config['overwrite']            = true;
 
-	public function simpan_password() 
-	{
-		$password_lama = md5($this->input->post('password_lama'));
-		$password_baru = md5($this->input->post('password_baru'));
-		$konfirmasi = md5($this->input->post('konfirmasi'));
+        $this->load->library('upload', $config);
 
-		$data = $this->user_model->login_attempt($this->session->userdata('email'), $password_lama)->row();
+        if (!$this->upload->do_upload('json')) {
+            redirect('user/form_json');
+        }
 
-		if ($password_lama == $data->password) {
-			if ($password_baru == $konfirmasi) {
-				echo "string";
-				$this->user_model->ubah_password($this->session->userdata('email'), $password_baru);
-			}
-			else {
-				echo "lalala";
-				$this->session->set_flashdata('message', 'Password baru dan konfirmasi tidak sama');
-				redirect("user/ubah_password");
-			}
-		}
-		else {
-			echo "asdasd";
-			$this->session->set_flashdata('message', 'Password lama salah');
-			redirect("user/ubah_password");
-		}
+        $this->user_model->deleteAll();
+        
+        $temp = file_get_contents("./upload/json/backup.json");
+        $users = json_decode($temp, true);
 
-		$this->session->set_flashdata('success', 'Password berhasil diubah');
-		redirect("overview");
-	}	
+        foreach ($users['user'] as $user) {
+            $this->user_model->insert($user);
+        }
+
+        unlink('./upload/json/backup.json');
+    }
 }

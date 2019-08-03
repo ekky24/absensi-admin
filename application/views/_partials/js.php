@@ -13,6 +13,9 @@
   <!-- Custom scripts for all pages-->
   <script src="<?php echo base_url('template/js/sb-admin.min.js')?>"></script>
 
+  <!-- Dropzone.js-->
+  <script src="<?php echo base_url('template/js/dropzone.js')?>"></script>
+
   <!-- Demo scripts for this page-->
   <script src="<?php echo base_url('template/js/demo/datatables-demo.js')?>"></script>
   <script src="<?php echo base_url('template/js/demo/chart-area-demo.js')?>"></script>

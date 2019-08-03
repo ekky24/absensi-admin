@@ -2,14 +2,14 @@
     <ul class="sidebar navbar-nav">
       <li class="nav-item active <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
       <li class="nav-item active <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="<?php echo site_url('user') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Overview</span>
+          <span>Manajemen Anggota</span>
         </a>
       </li>
-      <li class="nav-item <?php echo $this->uri->segment(2) == 'setting' ? 'active': '' ?>">
-        <a class="nav-link" href="tables.html">
+      <li class="nav-item <?php echo $this->uri->segment(2) == 'laporan' ? 'active': '' ?>">
+        <a class="nav-link" href="<?php echo site_url('user/laporan') ?>">
           <i class="fas fa-fw fa-table"></i>
-          <span>Laporan</span></a>
+          <span>Laporan Absen</span></a>
       </li>
     </ul>
