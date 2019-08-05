@@ -16,5 +16,8 @@
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url('template/css/sb-admin.css')?>" rel="stylesheet">
 
+  <!-- Dropzone.css-->
+  <link href="<?php echo base_url('template/css/dropzone.css')?>" rel="stylesheet">
+
   <!-- Custom made styles-->
   <link href="<?php echo base_url('template/css/custom.css')?>" rel="stylesheet">

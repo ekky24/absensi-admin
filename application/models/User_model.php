@@ -4,6 +4,7 @@ class User_model extends CI_Model
 {
     private $_table = "user";
     private $_table_filter = "scanlog";
+    private $_table_image = "image";
 
     public function getAll()
     {
@@ -12,7 +13,7 @@ class User_model extends CI_Model
     
     public function getById($id)
     {
-        return $this->db->get_where($this->_table, ["product_id" => $id])->row();
+        return $this->db->get_where($this->_table, ["pin" => $id])->row();
     }
 
     public function getByFilter($tgl_awal, $tgl_akhir)
@@ -27,7 +28,7 @@ class User_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
-    public function insert($user)
+    public function insertUser($user)
     {
         $data = array(
             "pin" => $user['pin'],
@@ -60,8 +61,42 @@ class User_model extends CI_Model
         $this->db->insert($this->_table, $data);
     }
 
-    public function deleteAll()
+    public function insertScanlog($scanlog)
+    {
+        $data = array(
+            "sn" => $scanlog['sn'],
+            "scan_date" => $scanlog['scan_date'],
+            "pin" => $scanlog['pin'],
+            "verifymode" => $scanlog['verifymode'],
+            "iomode" => $scanlog['iomode'],
+            "workcode" => $scanlog['workcode'],
+        );
+
+        $this->db->insert($this->_table_filter, $data);
+    }
+
+    public function insertImage($pin, $filename)
+    {
+        $data = array(
+            "pin" => $pin,
+            "filename" => $filename,
+        );
+
+        $this->db->insert($this->_table_image, $data);
+    }
+
+    public function deleteImage($filename)
+    {
+        $this->db->delete($this->_table_image, array("filename" => $filename));
+    }
+
+    public function deleteAllUser()
     {
         $this->db->empty_table($this->_table);
+    }
+
+    public function deleteAllScanlog()
+    {
+        $this->db->empty_table($this->_table_filter);
     }
 }

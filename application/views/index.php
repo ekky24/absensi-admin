@@ -18,7 +18,7 @@
         <!-- DataTables -->
         <div class="card mb-3">
           <div class="card-body">
-
+            <h1>Data User</h1><hr>
             <div class="table-responsive">
               <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -100,14 +100,15 @@
                     <td><?php echo $user->email ?></td>
                   </tr>
                 </table>
-                <form action="<?php echo site_url('user/upload_foto') ?>" class="dropzone">
-                  <div class="fallback">
-                    <input name="file" type="file" multiple />
-                  </div>
-                  <button type="submit" class="btn btn-primary">Upload Foto</button>
+                <!--<form action="<?php echo site_url('user/upload_foto') ?>" class="dropzone" id="<?php echo $user->pin ?>">
+                  <input type="hidden" value="<?php echo $user->pin ?>" name="pin">
                 </form>
+                <button href="<?php echo site_url('user/show_foto') ?>" style="display: none;" class="btn_dummy"></button>-->
               </div>
               <div class="modal-footer">
+                <form action="<?php echo site_url('user/form_foto/') . $user->pin ?>" method='get'>
+                  <button class="btn btn-primary" type="submit">Edit Foto</button>
+                </form>
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
               </div>
             </div>
@@ -128,6 +129,34 @@
   <?php $this->load->view("_partials/modal.php") ?>
 
   <?php $this->load->view("_partials/js.php") ?>
+  <!--<script>
+    $('.dropzone').each(function(i, obj) {
+      Dropzone.autoDiscover = false;
+      var id = $(this).attr('id')
+      $(this).dropzone({
+        init: function() { 
+          myDropzone = this;
+          console.log(this);
+          $.ajax({
+            url: $('.btn_dummy').attr('href') + '/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+
+              $.each(response, function(key,value) {
+                var mockFile = { name: value.name, size: value.size };
+
+                myDropzone.emit("addedfile", mockFile);
+                myDropzone.emit("thumbnail", mockFile, value.path);
+                myDropzone.emit("complete", mockFile);
+              });
+
+            }
+          });
+        }
+      });
+    });
+  </script>-->
 </body>
 
 </html>

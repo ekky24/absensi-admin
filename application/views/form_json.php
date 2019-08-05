@@ -30,10 +30,18 @@
 						<form action="<?php echo site_url('user/upload_json') ?>" method="post" enctype="multipart/form-data">
 
 							<div class="form-group">
-								<label for="name">Upload File JSON*</label>
-								<input class="form-control-file <?php echo form_error('json') ? 'is-invalid':'' ?>" type="file" name="json" />
+								<label for="name">Upload JSON User*</label>
+								<input class="form-control-file <?php echo form_error('user') ? 'is-invalid':'' ?>" type="file" name="user" />
 								<div class="invalid-feedback">
-									<?php echo form_error('json') ?>
+									<?php echo form_error('user') ?>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="name">Upload JSON Scanlog*</label>
+								<input class="form-control-file <?php echo form_error('scanlog') ? 'is-invalid':'' ?>" type="file" name="scanlog" />
+								<div class="invalid-feedback">
+									<?php echo form_error('scanlog') ?>
 								</div>
 							</div>
 

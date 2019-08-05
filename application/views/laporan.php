@@ -18,6 +18,7 @@
         <!-- DataTables -->
         <div class="card mb-3">
           <div class="card-body">
+            <h1>Data Absen</h1><hr>
             <form class="form-inline" action="<?php echo site_url('user/laporan') ?>" method="post">
               <div class="form-group">
                 <label for="tgl_awal">Rentang Tanggal</label>

@@ -22,11 +22,8 @@
 				<?php endif; ?>
 
 				<div class="card mb-3">
-					<div class="card-header">
-						<a href="<?php echo site_url('user') ?>"><i class="fas fa-arrow-left"></i> Back</a>
-					</div>
 					<div class="card-body">
-
+						<h1>Ubah Password</h1><hr>
 						<form action="<?php echo site_url('admin/simpan_password') ?>" method="post" enctype="multipart/form-data" >
 							<div class="form-group">
 								<label for="email">Email</label>

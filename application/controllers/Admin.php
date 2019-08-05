@@ -47,6 +47,9 @@ class Admin extends CI_Controller {
 
 	public function ubah_password() 
 	{
+		if(empty($this->session->userdata('email'))) {
+            redirect('admin/login');
+        }
 		$this->load->view('ubah_password');
 	}
 
