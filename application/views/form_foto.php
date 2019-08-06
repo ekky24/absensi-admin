@@ -3,6 +3,13 @@
 
 <head>
   <?php $this->load->view("_partials/head.php") ?>
+  <style type="text/css">
+    .dz-preview .dz-image img{
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+      }
+  </style>
 </head>
 
 <body id="page-top">
@@ -81,16 +88,15 @@
                   <td><?php echo $user->no_kendaraan; ?></td>
                 </tr>
                 <tr>
-                  <th>Foto :</th>
-                  <td></td>
+                  <th>Foto</th>
+                  <td>
+                    <form class="dropzone" id="dropzone" action="<?php echo site_url('user/upload_foto/' . $user->pin) ?>" method='post'>
+                    </form>
+                    <button href="<?php echo site_url('user/show_foto/' . $user->pin) ?>" style="display: none;" class="btn_dummy_show"></button>
+                    <button href="<?php echo site_url('user/delete_foto') ?>" style="display: none;" class="btn_dummy_delete"></button>
+                  </td>
                 </tr>
-              </table>
-              <!-- Dropzone -->
-              <form action="<?php echo site_url('user/upload_foto') ?>" class="dropzone" id="<?php echo $user->pin ?>">
-                <input type="hidden" value="<?php echo $user->pin ?>" name="pin">
-              </form><br>
-              <button href="<?php echo site_url('user/show_foto') ?>" style="display: none;" class="btn_dummy_show"></button>
-              <button href="<?php echo site_url('user/delete_foto') ?>" style="display: none;" class="btn_dummy_delete"></button>
+              </table><br>
             </div>
           </div>
         </div>
@@ -112,45 +118,49 @@
   <?php $this->load->view("_partials/js.php") ?>
 
   <script>
-      Dropzone.autoDiscover = false;
-      var id = $('.dropzone').attr('id')
-      $('.dropzone').dropzone({
-        addRemoveLinks: true,
-        removedfile: function(file) {
-          var name = file.name;
-           
-          $.ajax({
-            type: 'POST',
-            url: $('.btn_dummy_delete').attr('href'),
-            data: {name: name},
-            sucess: function(data){
-              
-            }
-          });
-          location.reload()
-        },
+      //Dropzone.autoDiscover = false;
+      Dropzone.options.dropzone = {
         init: function() { 
           myDropzone = this;
-          console.log(this);
           $.ajax({
-            url: $('.btn_dummy_show').attr('href') + '/' + id,
+            url: $('.btn_dummy_show').attr('href'),
             type: 'get',
             dataType: 'json',
             success: function(response){
 
               $.each(response, function(key,value) {
-                var mockFile = { name: value.name, size: value.size };
-
+                let mockFile = { name: value.name, size: value.size };
+                myDropzone.files.push( mockFile );
                 myDropzone.emit("addedfile", mockFile);
                 myDropzone.emit("thumbnail", mockFile, value.path);
                 myDropzone.emit("complete", mockFile);
               });
 
             }
-          });
+          })
         },
-        thumbnailMethod: 'contain',
-      });
+        addRemoveLinks: true,
+        removedfile: function(file) {
+          var name = file.name;
+          $.ajax({
+            type: 'POST',
+            url: $('.btn_dummy_delete').attr('href'),
+            data: {name: name},
+            success: function(data){
+              location.reload()
+            }
+          });
+          var _ref
+          return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0
+        },
+        success: function(file, response) {
+          location.reload()
+        },
+        maxThumbnailFilesize: 20,
+        acceptedFiles: 'image/*,.jpg,.png,.jpeg',
+        thumbnailWidth:"250",
+        thumbnailHeight:"250",
+      };
   </script>
 </body>
 

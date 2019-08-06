@@ -15,6 +15,14 @@
     <div id="content-wrapper">
 
       <div class="container-fluid">
+        <?php if ($this->session->flashdata('success')): ?>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $this->session->flashdata('success'); ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <?php endif; ?>
         <!-- DataTables -->
         <div class="card mb-3">
           <div class="card-body">
@@ -107,7 +115,7 @@
               </div>
               <div class="modal-footer">
                 <form action="<?php echo site_url('user/form_foto/') . $user->pin ?>" method='get'>
-                  <button class="btn btn-primary" type="submit">Edit Foto</button>
+                  <button class="btn btn-primary" type="submit">Detail Data</button>
                 </form>
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
               </div>

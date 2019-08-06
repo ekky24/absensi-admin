@@ -43,11 +43,11 @@ class User extends CI_Controller {
         $this->load->view('form_foto', $data);
     }
 
-    public function upload_foto()
+    public function upload_foto($id)
     {
         date_default_timezone_set('Asia/Jakarta');
         $now = time();
-        $pin = $this->input->post('pin');
+        $pin = $id;
         $filename = $pin . '_' . $now;
 
         $config['upload_path']          = './upload/foto/';
