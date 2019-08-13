@@ -1,6 +1,6 @@
 <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active <?php echo $this->uri->segment(2) == null ? 'active': '' ?>">
+      <li class="nav-item <?php echo $this->uri->segment(2) == null ? 'active': '' ?>">
         <a class="nav-link" href="<?php echo site_url('user') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Manajemen Anggota</span>

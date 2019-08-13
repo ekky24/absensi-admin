@@ -74,44 +74,45 @@
                 </button>
               </div>
               <div class="modal-body">
-                <table width="100%">
+                <table width="100%" class="table table-condensed table-detail-data">
                   <tr>
-                    <td>Nama Lengkap</td>
+                    <th width="40%">Nama Lengkap</th>
                     <td><?php echo $user->nama ?></td>
                   </tr>
                   <tr>
-                    <td>Jenis Kelamin</td>
-                    <td><?php echo $user->jenis_kelamin ?></td>
+                    <th>Jenis Kelamin</th>
+                    <td><?php if ($user->jenis_kelamin == 'L') echo "Laki-Laki"; else echo "Perempuan"; ?></td>
                   </tr>
                   <tr>
-                    <td>TTL</td>
-                    <td><?php echo $user->tanggal_lahir ?></td>
+                    <th>Tanggal Lahir</th>
+                    <td><?php 
+                      if ($user->tanggal_lahir != null) {
+                        $temp = explode('-', $user->tanggal_lahir);
+                        echo $temp[2] . '-' . $temp[1] . '-' . $temp[0];
+                      }
+                    ?></td>
                   </tr>
                   <tr>
-                    <td>Alamat</td>
+                    <th>Alamat</th>
                     <td><?php echo $user->alamat ?></td>
                   </tr>
                   <tr>
-                    <td>Telepon 1</td>
+                    <th>Telepon 1</th>
                     <td><?php echo $user->tlp1 ?></td>
                   </tr>
                   <tr>
-                    <td>Telepon 2</td>
+                    <th>Telepon 2</th>
                     <td><?php echo $user->tlp2 ?></td>
                   </tr>
                   <tr>
-                    <td>WA</td>
+                    <th>WA</th>
                     <td><?php echo $user->wa ?></td>
                   </tr>
                   <tr>
-                    <td>Email</td>
+                    <th>Email</th>
                     <td><?php echo $user->email ?></td>
                   </tr>
                 </table>
-                <!--<form action="<?php echo site_url('user/upload_foto') ?>" class="dropzone" id="<?php echo $user->pin ?>">
-                  <input type="hidden" value="<?php echo $user->pin ?>" name="pin">
-                </form>
-                <button href="<?php echo site_url('user/show_foto') ?>" style="display: none;" class="btn_dummy"></button>-->
               </div>
               <div class="modal-footer">
                 <form action="<?php echo site_url('user/form_foto/') . $user->pin ?>" method='get'>
@@ -137,34 +138,6 @@
   <?php $this->load->view("_partials/modal.php") ?>
 
   <?php $this->load->view("_partials/js.php") ?>
-  <!--<script>
-    $('.dropzone').each(function(i, obj) {
-      Dropzone.autoDiscover = false;
-      var id = $(this).attr('id')
-      $(this).dropzone({
-        init: function() { 
-          myDropzone = this;
-          console.log(this);
-          $.ajax({
-            url: $('.btn_dummy').attr('href') + '/' + id,
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-
-              $.each(response, function(key,value) {
-                var mockFile = { name: value.name, size: value.size };
-
-                myDropzone.emit("addedfile", mockFile);
-                myDropzone.emit("thumbnail", mockFile, value.path);
-                myDropzone.emit("complete", mockFile);
-              });
-
-            }
-          });
-        }
-      });
-    });
-  </script>-->
 </body>
 
 </html>

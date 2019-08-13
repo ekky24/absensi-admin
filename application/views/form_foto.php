@@ -38,8 +38,10 @@
                 <tr>
                   <th>Tanggal Lahir</th>
                   <td><?php 
-                    $temp = explode('-', $user->tanggal_lahir);
-                    echo $temp[2] . '-' . $temp[1] . '-' . $temp[0];
+                    if ($user->tanggal_lahir != null) {
+                      $temp = explode('-', $user->tanggal_lahir);
+                      echo $temp[2] . '-' . $temp[1] . '-' . $temp[0];
+                    }
                    ?></td>
                 </tr>
                 <tr>
@@ -147,7 +149,7 @@
             url: $('.btn_dummy_delete').attr('href'),
             data: {name: name},
             success: function(data){
-              location.reload()
+              //location.reload()
             }
           });
           var _ref

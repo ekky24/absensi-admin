@@ -25,6 +25,11 @@ class User extends CI_Controller {
     	$tgl_awal = $this->input->post('tgl_awal');
     	$tgl_akhir = $this->input->post('tgl_akhir');
 
+        if ($tgl_awal > $tgl_akhir) {
+            $this->session->set_flashdata('message', 'Masukkan tanggal dengan benar');
+            redirect("user/laporan");
+        }
+
     	$data['users'] = $this->user_model->getByFilter($tgl_awal, $tgl_akhir);
     	$data['tgl_awal'] = $tgl_awal;
     	$data['tgl_akhir'] = $tgl_akhir;
@@ -67,20 +72,16 @@ class User extends CI_Controller {
     public function show_foto($id)
     {
         $file_list = array();
-
-        // Target directory
         $dir = './upload/foto/';
+
         if (is_dir($dir)) {
             if ($dh = opendir($dir)) {
 
-            // Read files
             while (($file = readdir($dh)) !== false){
                 if($file != '' && $file != '.' && $file != '..') {
                     if (substr($file, 0, 1) == $id) {
-                        // File path
                         $file_path = $dir.$file;
 
-                        // Check its not folder
                         if(!is_dir($file_path)){
                             $size = filesize($file_path);
                             $file_list[] = array('name'=>$file,'size'=>$size,'path'=>base_url('upload/foto/' . $file));
