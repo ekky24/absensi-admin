@@ -17,7 +17,7 @@
             if(!empty($this->session->userdata('email'))) {
               echo '<a class="dropdown-item" href="' . site_url('admin/ubah_password') . '">Ubah Password</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="' . site_url('admin/logout') . '" data-toggle="modal" data-target="#logoutModal">Logout</a>';
+              <a class="dropdown-item" href="' . site_url('admin/logout') . '">Logout</a>';
             }
             else {
               echo '<a class="dropdown-item" href="' . site_url('admin/login') . '">Login</a>'; 

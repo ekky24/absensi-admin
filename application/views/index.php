@@ -76,7 +76,7 @@
               <div class="modal-body">
                 <table width="100%" class="table table-condensed table-detail-data">
                   <tr>
-                    <th width="40%">Nama Lengkap</th>
+                    <th width="35%">Nama Lengkap</th>
                     <td><?php echo $user->nama ?></td>
                   </tr>
                   <tr>

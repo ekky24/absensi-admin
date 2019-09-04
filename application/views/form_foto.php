@@ -136,8 +136,16 @@
                 myDropzone.emit("addedfile", mockFile);
                 myDropzone.emit("thumbnail", mockFile, value.path);
                 myDropzone.emit("complete", mockFile);
-              });
 
+                var center = document.createElement('center');
+                var view = document.createElement('a');
+                view.href = "<?php echo site_url('user/view_foto/') ?>"+mockFile.name;
+                view.className = 'btn btn-primary btn-sm text-center';
+                view.innerHTML = "View";
+                view.target = "_blank";
+                center.appendChild(view);
+                mockFile.previewTemplate.appendChild(center);
+              });
             }
           })
         },
