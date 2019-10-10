@@ -53,9 +53,15 @@ class User_model extends CI_Model
         if (empty($user['bursa'])) $user['bursa'] = null;
         if (empty($user['olahraga'])) $user['olahraga'] = null;
         if (empty($user['baca_parita'])) $user['baca_parita'] = null;
+        if (empty($user['diskusi_dhamma'])) $user['diskusi_dhamma'] = null;
+        if (empty($user['seminar'])) $user['seminar'] = null;
+        if (empty($user['kelas_dhamma'])) $user['kelas_dhamma'] = null;
         if (empty($user['jenis_kendaraan'])) $user['jenis_kendaraan'] = null;
         if (empty($user['no_kendaraan'])) $user['no_kendaraan'] = null;
         if (empty($user['status'])) $user['status'] = null;
+        if (empty($user['tempat_lahir'])) $user['tempat_lahir'] = null;
+        if (empty($user['goldar'])) $user['goldar'] = null;
+        if (empty($user['nama_buddhist'])) $user['nama_buddhist'] = null;
 
         $data = array(
             "pin" => $user['pin'],
@@ -81,9 +87,15 @@ class User_model extends CI_Model
             "bursa" => $user['bursa'],
             "olahraga" => $user['olahraga'],
             "baca_parita" => $user['baca_parita'],
+            "diskusi_dhamma" => $user['diskusi_dhamma'],
+            "seminar" => $user['seminar'],
+            "kelas_dhamma" => $user['kelas_dhamma'],
             "jenis_kendaraan" => $user['jenis_kendaraan'],
             "no_kendaraan" => $user['no_kendaraan'],
             "status" => $user['status'],
+            "tempat_lahir" => $user['tempat_lahir'],
+            "goldar" => $user['goldar'],
+            "nama_buddhist" => $user['nama_buddhist'],
         );
 
         $sql = $this->db->insert_string($this->_table, $data) . " ON DUPLICATE KEY UPDATE ";
@@ -109,9 +121,15 @@ class User_model extends CI_Model
         $sql = $sql . "bursa='" . $user['bursa'] . "',";
         $sql = $sql . "olahraga='" . $user['olahraga'] . "',";
         $sql = $sql . "baca_parita='" . $user['baca_parita'] . "',";
+        $sql = $sql . "diskusi_dhamma='" . $user['diskusi_dhamma'] . "',";
+        $sql = $sql . "seminar='" . $user['seminar'] . "',";
+        $sql = $sql . "kelas_dhamma='" . $user['kelas_dhamma'] . "',";
         $sql = $sql . "jenis_kendaraan='" . $user['jenis_kendaraan'] . "',";
         $sql = $sql . "no_kendaraan='" . $user['no_kendaraan'] . "',";
-        $sql = $sql . "status='" . $user['status'] . "'";
+        $sql = $sql . "status='" . $user['status'] . "',";
+        $sql = $sql . "tempat_lahir='" . $user['tempat_lahir'] . "',";
+        $sql = $sql . "goldar='" . $user['goldar'] . "',";
+        $sql = $sql . "nama_buddhist='" . $user['nama_buddhist'] . "'";
 
         $this->db->query($sql);
     }
