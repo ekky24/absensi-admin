@@ -131,7 +131,16 @@ class User_model extends CI_Model
         $sql = $sql . "goldar='" . $user['goldar'] . "',";
         $sql = $sql . "nama_buddhist='" . $user['nama_buddhist'] . "'";
 
-        $this->db->query($sql);
+        $msg = "";
+
+        if ( ! $this->db->query($sql)) {
+            $msg = $this->db->error()['message']; // Has keys 'code' and 'message'
+        }
+        else {
+            $msg = 'berhasil';
+        }
+
+        return $msg;
     }
 
     public function insertScanlog($scanlog)
@@ -163,7 +172,16 @@ class User_model extends CI_Model
         $sql = $sql . "workcode='" . $scanlog['workcode'] . "',";
         $sql = $sql . "status='" . $scanlog['status'] . "'";
 
-        $this->db->query($sql);
+        $msg = "";
+
+        if ( ! $this->db->query($sql)) {
+            $msg = $this->db->error()['message']; // Has keys 'code' and 'message'
+        }
+        else {
+            $msg = 'berhasil';
+        }
+
+        return $msg;
     }
 
     public function insertImage($pin, $filename)

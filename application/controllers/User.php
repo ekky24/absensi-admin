@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Controller {
-	public function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->load->model("user_model");
@@ -10,7 +10,7 @@ class User extends CI_Controller {
         $this->load->helper('url');
     }
 
-	public function index()
+    public function index()
     {
         if(empty($this->session->userdata('email'))) {
             redirect('admin/login');
@@ -24,19 +24,19 @@ class User extends CI_Controller {
         if(empty($this->session->userdata('email'))) {
             redirect('admin/login');
         }
-    	$tgl_awal = $this->input->post('tgl_awal');
-    	$tgl_akhir = $this->input->post('tgl_akhir');
+        $tgl_awal = $this->input->post('tgl_awal');
+        $tgl_akhir = $this->input->post('tgl_akhir');
 
         if ($tgl_awal > $tgl_akhir) {
             $this->session->set_flashdata('message', 'Masukkan tanggal dengan benar');
             redirect("user/laporan");
         }
 
-    	$data['users'] = $this->user_model->getByFilter($tgl_awal, $tgl_akhir);
-    	$data['tgl_awal'] = $tgl_awal;
-    	$data['tgl_akhir'] = $tgl_akhir;
+        $data['users'] = $this->user_model->getByFilter($tgl_awal, $tgl_akhir);
+        $data['tgl_awal'] = $tgl_awal;
+        $data['tgl_akhir'] = $tgl_akhir;
 
-    	$this->load->view('laporan', $data);	
+        $this->load->view('laporan', $data);    
     }
 
     public function form_json()
@@ -44,7 +44,7 @@ class User extends CI_Controller {
         if(empty($this->session->userdata('email'))) {
             redirect('admin/login');
         }
-    	$this->load->view('form_json');
+        $this->load->view('form_json');
     }
 
     public function form_foto($id)
@@ -142,23 +142,31 @@ class User extends CI_Controller {
 
     public function sync_user()
     {
-        $stream = $this->security->xss_clean($this->input->raw_input_stream);
+        $stream = $this->input->post('inputpost');
         $users = json_decode($stream, true);
+        $result = "";
 
         foreach ($users as $user) {
-            $this->user_model->insertUser($user);
+            $result = $this->user_model->insertUser($user);
+            if ($result != 'berhasil') {
+                break;
+            }
         }
-        return true;
+
+        echo $result;
     }
 
     public function sync_scanlog()
     {
-        $stream = $this->security->xss_clean($this->input->raw_input_stream);
+        $stream = $this->input->post('inputpost');
         $scanlogs = json_decode($stream, true);
 
         foreach ($scanlogs as $scanlog) {
-            $this->user_model->insertScanlog($scanlog);
+            $result = $this->user_model->insertScanlog($scanlog);
+            if ($result != 'berhasil') {
+                break;
+            }
         }
-        return true;
+        echo $result;
     }
 }

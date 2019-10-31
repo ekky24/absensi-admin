@@ -36,6 +36,10 @@
                   <td><?php if ($user->jenis_kelamin == 'L') echo "Laki-Laki"; else echo "Perempuan"; ?></td>
                 </tr>
                 <tr>
+                  <th>Tempat Lahir</th>
+                  <td><?php echo $user->tempat_lahir; ?></td>
+                </tr>
+                <tr>
                   <th>Tanggal Lahir</th>
                   <td><?php 
                     if ($user->tanggal_lahir != null) {
@@ -78,6 +82,9 @@
                     if ($user->bursa != NULL and $user->bursa != '0') $temp .= 'Bursa, ';
                     if ($user->olahraga != NULL and $user->olahraga != '0') $temp .= 'Olahraga, ';
                     if ($user->baca_parita != NULL and $user->baca_parita != '0') $temp .= 'Baca Parita, ';
+                    if ($user->diskusi_dhamma != NULL and $user->diskusi_dhamma != '0') $temp .= 'Diskusi Dhamma, ';
+                    if ($user->seminar != NULL and $user->seminar != '0') $temp .= 'Seminar, ';
+                    if ($user->kelas_dhamma != NULL and $user->kelas_dhamma != '0') $temp .= 'Kelas Dhamma, ';
                     echo substr($temp, 0, -2);
                   ?></td>
                 </tr>
@@ -88,6 +95,14 @@
                 <tr>
                   <th>Nomor Kendaraan</th>
                   <td><?php echo $user->no_kendaraan; ?></td>
+                </tr>
+                <tr>
+                  <th>Goldar</th>
+                  <td><?php if ($user->goldar != NULL) echo $user->goldar; ?></td>
+                </tr>
+                <tr>
+                  <th>Nama Buddhist</th>
+                  <td><?php if ($user->nama_buddhist != NULL) echo $user->nama_buddhist; ?></td>
                 </tr>
                 <tr>
                   <th>Foto</th>
